@@ -7,6 +7,9 @@
 
 #define TTY_DEV "dev/tty"
 
+//管道可以多端写入，也可以多端读取，但通常情况下，只保留一个写端与读端；
+//管道里的数据一旦读取就没有了
+
 int main(int argc, char **argv){
 	
 	int i;
