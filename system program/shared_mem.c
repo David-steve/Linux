@@ -7,7 +7,7 @@
 //共享内存不提供同步机制，需要配合其他同步机制来同步对共享内存的访问，如信号量
 
 int main(int argc, char **argv){
-	//创建键值对
+	//创建键值
 	key_t shm_key = ftok(".", 1);
 	if(-1 == shm_key){
 		printf("shm_key failed\n");
