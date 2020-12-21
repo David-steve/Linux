@@ -208,8 +208,6 @@ static int __init led_init(void)		//模块加载函数（一般需要）
  	printk("major is %d\n", major);
 	printk("minor is %d\n", minor);
 
-	
-
  	//初始化字符设备
  	cdev_init(&led_cdev, &led_ops);
 
@@ -223,7 +221,7 @@ static int __init led_init(void)		//模块加载函数（一般需要）
  	//申请物理内存
  	led_res = request_mem_region(GPIOE_OUT, 0x24, "gpioe");
 	if(NULL == led_res){
-		ret = ENOMEM;
+		ret = -ENOMEM;
 		printk("<4>""request_mem_region fail\n");
 		goto err_request_mem_region;
 	}
@@ -231,14 +229,14 @@ static int __init led_init(void)		//模块加载函数（一般需要）
 	//将物理内存映射到虚拟内存
 	gpioe_out = ioremap(GPIOE_OUT, 0x24);
 	if(NULL == gpioe_out){
-		ret = ENOMEM;
+		ret = -ENOMEM;
 		printk("<4>""ioremap fail\n");
 		goto err_ioremap;
 	}
 
 	led_res = request_mem_region(GPIOC_OUT, 0x28, "gpioc");
 	if(NULL == led_res){
-		ret = ENOMEM;
+		ret = -ENOMEM;
 		printk("<4>""request_mem_region fail\n");
 		goto err_gpioc_request_mem_region;
 	}
