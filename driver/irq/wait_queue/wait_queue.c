@@ -6,7 +6,7 @@
 #include <linux/ioctl.h>		//ioctl
 #include <linux/sched.h>		//wait_queue
 
-static struct cdev 		key_cdev;
+static struct cdev 		key_cdev;		// 字符设备
 static struct device 	*key_device;
 static struct class		*key_class;
 static dev_t 			key_dev_num = 0;
@@ -150,9 +150,9 @@ static int __init key2_init(void)
 		goto err_device_create;
 	}
 
-	/*request for key interrupt handle*/
-	/*request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags,
-	    const char *name, void *dev)*/
+	/* request for key interrupt handle */
+	/* request_irq(unsigned int irq, irq_handler_t handler, unsigned long flags,
+	    const char *name, void *dev) */
 	ret = request_irq(IRQ_GPIO_A_START+28, key_handler, IRQF_TRIGGER_FALLING, "key_k2_irq", NULL);
 	if(ret < 0){
 		printk("irq_request failed\n");
