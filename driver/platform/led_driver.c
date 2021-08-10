@@ -15,7 +15,7 @@ struct led_device {
 	struct device_node *node;
 };
 
-struct led_device led_dev;
+static struct led_device led_dev;
 
 static ssize_t led_write(struct file *file, const char __user *buf, size_t size, loff_t *off)
 {
@@ -41,8 +41,10 @@ static int led_probe(struct platform_device *dev)
 	int ret = 0;
 	struct resource *led_resource[1];
 
-	led_resource[0] = platform_get_resource(dev, IORESOURCE_MEM, 1);
-	if(led_resource[0]){
+	printk("led device and driver have been matched\n");
+
+	led_resource[0] = platform_get_resource(dev, IORESOURCE_MEM, 0);
+	if(!led_resource[0]){
 		printk("platform_get_resource failed\n");
 		return -ENXIO;
 	}
